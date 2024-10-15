@@ -1,0 +1,27 @@
+<div class="content-wrapper">
+
+  <div class="content-wrapper__search">
+    <input class="content-wrapper__search__input" type="text" [(ngModel)]="inputString" placeholder="type some words">
+    <button class="content-wrapper__search__button" (click)="getFiles()">Find Files</button>
+    <app-voice-input (recognizedTextEvent)="getRecognizedText($event)"></app-voice-input>
+  </div>
+
+  <div class="content-wrapper__result" *ngIf="files.length">
+    <ng-container class="content-wrapper__result__items" *ngFor="let file of files">
+      <div class="content-wrapper__result__items__item" (click)="getFileInfo(file.name)">
+        <span> {{file.name}} </span>
+        <span> <b>{{file.value}}</b> </span>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="content-wrapper__file-get-result" *ngIf="!files.length">
+    No files
+  </div>
+
+  <div class="content-wrapper__file-content" *ngIf="fileInfo">
+    <span>Содержимое файла: </span>
+    <div class="content-wrapper__file-content__content">{{ fileInfo }}</div>
+    <button class="content-wrapper__file-content__button" (click)="closeFileInfo()">Close</button>
+  </div>
+</div>
